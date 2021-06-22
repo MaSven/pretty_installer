@@ -1,0 +1,3 @@
+defmodule PrettyInstallerWeb.PayloadController do
+  use PrettyInstallerWeb, :controller
+end
