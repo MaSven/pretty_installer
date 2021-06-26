@@ -32,8 +32,6 @@ jobs:
       run: mix deps.get
       env:
         MIX_ENV: prod
-    - name: Run tests
-      run: mix test
     - name: create binary
       run: mix release
       env:
