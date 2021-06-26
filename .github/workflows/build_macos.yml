@@ -11,7 +11,8 @@ jobs:
 
     name: Build and test
     runs-on: macos-11
-
+    env:
+      SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Elixir
