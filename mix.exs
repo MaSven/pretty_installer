@@ -10,7 +10,13 @@ defmodule PrettyInstaller.MixProject do
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      releases: [
+	pretty_installer: [
+	  applications: [runtime_tools: :permanent],
+	  steps: [:assemble,:tar]
+	]
+      ]
     ]
   end
 
