@@ -10,13 +10,13 @@ jobs:
   build:
 
     name: Build and test
-    runs-on: macos-latest
+    runs-on: ubuntu-20.04
     env:
       SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Elixir
-      uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
+      uses: erlef/setup-beam@v1
       with:
         elixir-version: '1.12' # Define the elixir version [required]
         otp-version: '24.0' # Define the OTP version [required]
