@@ -40,4 +40,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: server
-        path: _build/prod/pretty_installer/pretty_installer-*.tar.gz
+        path: _build/prod/pretty_installer-*.tar.gz
