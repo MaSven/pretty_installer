@@ -11,7 +11,7 @@ defmodule PrettyInstallerWeb.PayloadController do
   #!/usr/bin/env bash
   echo "Pwned you"
   """
-  @key Ed25519.generate_key_pair()
+  @key :crypto.generate_key(:eddsa,:ed25519)
   
   def index(conn,_params) do
     Logger.info(conn)
@@ -24,8 +24,8 @@ defmodule PrettyInstallerWeb.PayloadController do
   end
 
   def signed(conn,_params) do
-    {private_key,public_key} = @key
-    text(conn,Ed25519.signature(@valid_script,private_key,public_key)|> Base.encode16())
+    {_public_key,private_key} = @key
+    text(conn,:crypto.sign(:eddsa,:sha512,@valid_script |> String.to_charlist,[private_key,:ed25519]) |> Base.encode16())
   end
 
   def public(conn,_params)do
