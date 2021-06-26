@@ -10,7 +10,7 @@ jobs:
   build:
 
     name: Build and test
-    runs-on: macos-11
+    runs-on: macos-latest
     env:
       SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
     steps:
