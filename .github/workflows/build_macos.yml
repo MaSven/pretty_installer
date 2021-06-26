@@ -1,0 +1,44 @@
+name: Elixir CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    name: Build and test
+    runs-on: macos-11
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Elixir
+      uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
+      with:
+        elixir-version: '1.12' # Define the elixir version [required]
+        otp-version: '24.0' # Define the OTP version [required]
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      env:
+        MIX_ENV: prod
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Install dependencies
+      run: mix deps.get
+      env:
+        MIX_ENV: prod
+    - name: Run tests
+      run: mix test
+    - name: create binary
+      run: mix release
+      env:
+        MIX_ENV: prod
+    - name: store binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: server
+        path: _build/prod/pretty_installer/pretty_installer-*.tar.gz
